@@ -1,8 +1,8 @@
 public class People {
 
     public static class Persona {
-        int id;
-        String nombre;
+        private int id;
+        private String nombre;
 
         public Persona(int id, String nombre) {
             this.id = id;
@@ -16,6 +16,19 @@ public class People {
         public String getNombre() {
             return nombre;
         }
-
     }
+
+    public static class Empleado extends Persona {
+        private boolean is_Available;
+
+        public Empleado(int id, String nombre, boolean is_Available) {
+            super(id, nombre);
+            this.is_Available = is_Available;
+        }
+
+        public boolean is_Available() {
+            return is_Available;
+        }
+    }
+
 }
