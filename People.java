@@ -23,7 +23,7 @@ public class People {
 
         public Empleado(int id, String nombre, boolean is_Available) {
             super(id, nombre);
-            this.is_Available = is_Available;
+            this.is_Available = true; // Por defecto, el empleado está disponible al crearse
         }
 
         public boolean is_Available() {
