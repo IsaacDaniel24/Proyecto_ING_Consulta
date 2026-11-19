@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Oficina_Medica {
     private static Scanner scanner = new Scanner(System.in);
@@ -47,10 +47,33 @@ public class Oficina_Medica {
             case 1:
                 System.out.println("Registrar Nuevo Paciente / Empleado");
                 // Lógica para registrar un nuevo paciente o empleado
+                System.out.println("1. Paciente");
+                System.out.println("2. Empleado");
+                int subOpcion = scanner.nextInt();
+                switch (subOpcion) {
+                    case 1:
+                        // Lógica para registrar un nuevo paciente
+
+                        break;
+                    case 2:
+                        // Lógica para registrar un nuevo empleado
+                        break;
+                }
                 break;
             case 2:
                 System.out.println("Agendar / Cancelar Cita");
                 // Lógica para agendar o cancelar una cita
+                System.out.println("1. Agendar Cita");
+                System.out.println("2. Cancelar Cita");
+                int subOpcion2 = scanner.nextInt();
+                switch (subOpcion2) {
+                    case 1:
+                        // Lógica para agendar una cita
+                        break;
+                    case 2:
+                        // Lógica para cancelar una cita
+                        break;
+                }
                 break;
             case 3:
                 System.out.println("Entrada de Paciente a Fila de Espera (Check-in)");
