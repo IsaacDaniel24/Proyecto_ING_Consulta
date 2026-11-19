@@ -53,10 +53,23 @@ public class Oficina_Medica {
                 switch (subOpcion) {
                     case 1:
                         // Lógica para registrar un nuevo paciente
-
+                        System.out.println("Ingrese ID del paciente:");
+                        int idPaciente = scanner.nextInt();
+                        System.out.println("Ingrese nombre del paciente:");
+                        scanner.nextLine();
+                        String nombrePaciente = scanner.nextLine();
+                        System.out.println("¿Es emergencia? (true/false):");
+                        boolean esEmergencia = scanner.nextBoolean();
+                        Secretaria.registrarPaciente(new Paciente(idPaciente, nombrePaciente, esEmergencia));
                         break;
                     case 2:
                         // Lógica para registrar un nuevo empleado
+                        System.out.println("Ingrese ID del empleado:");
+                        int idEmpleado = scanner.nextInt();
+                        System.out.println("Ingrese nombre del empleado:");
+                        scanner.nextLine();
+                        String nombreEmpleado = scanner.nextLine();
+                        Secretaria.registrarEmpleado(new People.Empleado(idEmpleado, nombreEmpleado, true));
                         break;
                 }
                 break;
