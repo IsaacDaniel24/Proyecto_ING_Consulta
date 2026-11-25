@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 public class Paciente extends People.Persona {
@@ -27,11 +29,42 @@ public class Paciente extends People.Persona {
 
     // Para el paso de Consulta: el médico añade notas al récord
     public void agregarNotaHistorial(String notaMedica) {
-        // Añadir nota (idealmente con fecha) a historialClinico
+        if (notaMedica == null || notaMedica.trim().isEmpty()) {
+            System.out.println("Error: La nota médica no puede estar vacía.");
+            return;
+        }
+
+        // Obtener fecha y hora actual formateada para mantener orden cronológico
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String fechaActual = LocalDateTime.now().format(formato);
+
+        String registroCompleto = "[" + fechaActual + "] " + notaMedica.trim();
+        historialClinico.add(registroCompleto);
     }
 
     // Para la opción 6 del menú: Ver Historial Clínico de un Paciente
     public void mostrarHistorial() {
-        // Recorrer e imprimir historialClinico
+        System.out.println("=== Historial Clínico ===");
+        System.out.println("Paciente: " + getNombre() + " (ID: " + getId() + ")");
+        System.out.println("Estado actual: " + (esEmergencia ? "EMERGENCIA" : "Normal"));
+        System.out.println("-------------------------");
+
+        if (historialClinico.isEmpty()) {
+            System.out.println("No hay registros médicos previos para este paciente.");
+        } else {
+            int numeroVisita = 1;
+            for (String nota : historialClinico) {
+                System.out.println(numeroVisita + ". " + nota);
+                numeroVisita++;
+            }
+        }
+        System.out.println("=========================");
+    }
+
+    // Útilizar esto para imprimir al paciente por prioridad
+    @Override
+    public String toString() {
+        String prioridad = esEmergencia ? "Emergencia" : "Normal";
+        return "ID: " + getId() + " | Nombre: " + getNombre() + " | Prioridad: " + prioridad;
     }
 }
