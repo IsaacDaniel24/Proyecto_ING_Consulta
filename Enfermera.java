@@ -1,5 +1,5 @@
-public class Enfermera extends People.Empleado{
-    
+public class Enfermera extends People.Empleado {
+
     public Enfermera(int id, String nombre, boolean is_Available) {
         super(id, nombre, is_Available);
     }
@@ -7,5 +7,5 @@ public class Enfermera extends People.Empleado{
     // Getters y Setters
 
     // Métodos
-    
+
 }

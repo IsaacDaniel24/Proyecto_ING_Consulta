@@ -25,7 +25,7 @@ public class Oficina_Medica {
                     + "2 . Agendar / Cancelar Cita\n"
                     + "3 . Entrada de Paciente a Fila de Espera (Check-in)\n"
                     + "4 . Atender Siguiente Paciente (Enfermero → > Médico)\n"
-                    + "5 . Consultas (Ver filas de espera, Citas de Hoy, Médicos libres)\n"
+                    + "5 . Consultas (Ver filas de espera, Citas de Hoy, Médicos disponibles)\n"
                     + "6 . Ver Historial Clínico de un Paciente\n"
                     + "7 . Salir\n"
                     + "Ingrese una opción: ");
@@ -54,7 +54,7 @@ public class Oficina_Medica {
                     switch (subOpcion) {
                         case 1:
                             // Lógica para registrar un nuevo paciente
-                            System.out.println("Ingrese ID del paciente:");
+                            System.out.println("Ingrese ID del paciente (4 dígitos):");
                             int idPaciente = scanner.nextInt();
                             System.out.println("Ingrese nombre del paciente:");
                             scanner.nextLine();
@@ -62,15 +62,17 @@ public class Oficina_Medica {
                             System.out.println("¿Es emergencia? (true/false):");
                             boolean esEmergencia = scanner.nextBoolean();
                             Secretaria.registrarPaciente(new Paciente(idPaciente, nombrePaciente, esEmergencia));
+                            System.out.println("Paciente registrado exitosamente!");
                             break;
                         case 2:
                             // Lógica para registrar un nuevo empleado
-                            System.out.println("Ingrese ID del empleado:");
+                            System.out.println("Ingrese ID del empleado (4 dígitos):");
                             int idEmpleado = scanner.nextInt();
                             System.out.println("Ingrese nombre del empleado:");
                             scanner.nextLine();
                             String nombreEmpleado = scanner.nextLine();
                             Secretaria.registrarEmpleado(new People.Empleado(idEmpleado, nombreEmpleado, true));
+                            System.out.println("Empleado registrado exitosamente!");
                             break;
                     }
                     break;
@@ -102,9 +104,10 @@ public class Oficina_Medica {
                     break;
 
                 case 5:
-                    System.out.println("Consultas (Ver filas de espera, Citas de Hoy, Médicos libres)"); // Lógica para
-                                                                                                         // ver
-                                                                                                         // consultas
+                    System.out.println("Consultas (Ver filas de espera, Citas de Hoy, Médicos disponibles)"); // Lógica
+                                                                                                              // para
+                                                                                                              // ver
+                                                                                                              // consultas
                     break;
 
                 case 6:
@@ -131,6 +134,12 @@ public class Oficina_Medica {
                     break;
             }
         }
-
+        System.out.println(Database.getInstance().getPacientes().values()); // Imprime el HashMap de pacientes para
+                                                                            // verificar que
+        // se
+        // registraron correctamente
+        System.out.println(Database.getInstance().getEmpleados().values()); // Imprime el HashMap de empleados para
+                                                                            // verificar que
+        // se registraron
     }
 }

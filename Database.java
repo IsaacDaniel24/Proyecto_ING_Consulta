@@ -12,12 +12,12 @@ public class Database {
     }
 
     private void PacientesDePrueba() {
-        Paciente p1 = new Paciente(101, "Ana Sofía Rivera", false);
+        Paciente p1 = new Paciente(1001, "Ana Sofía Rivera", false);
         p1.agregarNotaHistorial("Chequeo general: todo en orden.");
 
         pacientes.put(101, p1);
-        pacientes.put(102, new Paciente(102, "Carlos Méndez", true));
-        pacientes.put(103, new Paciente(103, "Lucía Morales", false));
+        pacientes.put(102, new Paciente(1002, "Carlos Méndez", true));
+        pacientes.put(103, new Paciente(1003, "Lucía Morales", false));
     }
 
     // Singleton pattern para asegurar que haya solamente una instancia de la base
