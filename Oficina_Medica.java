@@ -18,7 +18,8 @@ public class Oficina_Medica {
         int opcion = 0;
         boolean opcionValida = false;
 
-        while (opcion !=7) { // Imprime el menú y corre el programa hasta que se imprima la opción de salir (7)
+        while (opcion != 7) { // Imprime el menú y corre el programa hasta que se imprima la opción de salir
+                              // (7)
             System.out.println("~~~ Menú Principal Oficina Médica ~~~\n\n"
                     + "1 . Registrar Nuevo Paciente / Empleado\n"
                     + "2 . Agendar / Cancelar Cita\n"
@@ -41,7 +42,6 @@ public class Oficina_Medica {
                 System.out.println("Entrada inválida. Por favor, ingrese solo números del 1 al 7.\n");
                 scanner.nextLine(); // Borra la entrada inválida
             }
-        
 
             // Entra aqui solo cuando la opción es válida
             switch (opcion) {
@@ -74,6 +74,7 @@ public class Oficina_Medica {
                             break;
                     }
                     break;
+
                 case 2:
                     System.out.println("Agendar / Cancelar Cita");
                     // Lógica para agendar o cancelar una cita
@@ -89,26 +90,44 @@ public class Oficina_Medica {
                             break;
                     }
                     break;
+
                 case 3:
                     System.out.println("Entrada de Paciente a Fila de Espera (Check-in)");
                     // Lógica para el check-in del paciente
                     break;
+
                 case 4:
                     System.out.println("Atender Siguiente Paciente (Enfermero -> Médico)");
                     // Lógica para atender al siguiente paciente
                     break;
+
                 case 5:
-                    System.out.println("Consultas (Ver filas de espera, Citas de Hoy, Médicos libres)");
-                    // Lógica para ver consultas
+                    System.out.println("Consultas (Ver filas de espera, Citas de Hoy, Médicos libres)"); // Lógica para
+                                                                                                         // ver
+                                                                                                         // consultas
                     break;
+
                 case 6:
                     System.out.println("Ver Historial Clínico de un Paciente");
-                    // Lógica para ver el historial clínico de un paciente
+                    System.out.println("Ingrese ID del paciente:");
+                    int idPaciente = scanner.nextInt();
+
+                    Database database = Database.getInstance();
+                    Paciente paciente = database.buscarPaciente(idPaciente); // Busca el paciente en la base de datos
+                                                                             // por su ID
+
+                    if (paciente != null) {
+                        paciente.mostrarHistorial();
+                    } else {
+                        System.out.println("Paciente no encontrado.");
+                    } // Lógica para ver el historial clínico de un paciente
                     break;
+
                 case 7:
                     System.out.println("Salir");
                     // Lógica para salir del programa
-                    System.out.println("Saliendo del programa... \n"  + "Gracias por usar la Oficina Médica. Que tenga un buen día.");
+                    System.out.println("Saliendo del programa... \n"
+                            + "Gracias por usar la Oficina Médica. Que tenga un buen día.");
                     break;
             }
         }
