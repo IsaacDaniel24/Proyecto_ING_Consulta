@@ -1,4 +1,3 @@
-import java.time.LocalDateTime;
 
 public class Secretaria extends People.Empleado {
 
@@ -41,9 +40,17 @@ public class Secretaria extends People.Empleado {
                                                                                          // base de datos
     }
 
-    public static void agendarCita(int idCita, Paciente paciente, Medico medico, LocalDateTime fechaHora) {
+    public static void registrarMedico(Medico medico) {
+        // Lógica para registrar un nuevo médico
+        Medico nuevoMedico = new Medico(medico.getId(), medico.getNombre(), medico.is_Available(),
+                medico.getEspecialidad());
+        Database.getInstance().getMedicos().put(nuevoMedico.getId(), nuevoMedico); // Agrega el médico al HashMap de
+                                                                                   // médicos en la base de datos
+    }
+
+    public static void agendarCita(int idCita, Paciente paciente, Medico medico) {
         // Agendar una cita para un paciente con un médico específico
-        Cita nuevaCita = new Cita(idCita, paciente, medico, fechaHora);
+        Cita nuevaCita = new Cita(idCita, paciente, medico);
         Database.getInstance().getCitas().put(idCita, nuevaCita); // Agrega la cita al HashMap de citas en la base de
                                                                   // datos
         // Agregar al paciente a la lista de pacientes del médico

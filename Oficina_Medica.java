@@ -152,7 +152,7 @@ public class Oficina_Medica {
                     // 2. Mostrar médicos disponibles para que el usuario elija
                     System.out.println("\n--- Médicos Disponibles ---");
                     boolean hayMedicos = false;
-                    for (People.Empleado emp : Database.getInstance().getEmpleados().values()) {
+                    for (People.Empleado emp : Database.getInstance().getMedicos().values()) {
                         if (emp instanceof Medico && emp.is_Available()) {
                             Medico doc = (Medico) emp;
                             System.out.println("ID: " + doc.getId() + " | Dr. " + doc.getNombre() + " ("
@@ -171,7 +171,7 @@ public class Oficina_Medica {
                     int idMedicoAsignado = scanner.nextInt();
                     scanner.nextLine();
 
-                    People.Empleado empSeleccionado = Database.getInstance().getEmpleados().get(idMedicoAsignado);
+                    People.Empleado empSeleccionado = Database.getInstance().getMedicos().get(idMedicoAsignado);
 
                     if (empSeleccionado instanceof Medico) {
                         Medico medicoAsignado = (Medico) empSeleccionado;
@@ -242,11 +242,15 @@ public class Oficina_Medica {
                                                                             // verificar que
         // se
         // registraron correctamente
-        System.out.println(Database.getInstance().getEmpleados().values()); // Imprime el HashMap de empleados para
-                                                                            // verificar que
+        System.out.println(Database.getInstance().getMedicos().values()); // Imprime el HashMap de empleados para
+                                                                          // verificar que
         // se registraron
 
         System.out.println(Database.getInstance().getCitas().values()); // Imprime el HashMap de citas para verificar
-                                                                        // que
+                                                                        // que se registraron correctamente
+
+        System.out.println(Database.getInstance().getEmpleados().values()); // Imprime el HashMap de empleados para
+                                                                            // verificar
+                                                                            // que se registraron correctamente
     }
 }

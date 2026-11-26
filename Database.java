@@ -5,12 +5,14 @@ import java.util.Stack;
 
 public class Database {
     private Map<Integer, People.Persona> pacientes;
+    private Map<Integer, People.Empleado> medicos;
     private Map<Integer, People.Empleado> empleados;
     private Map<Integer, Cita> citas;
     private Stack<Cita> citasCompletadas;
 
     public Database() {
         this.pacientes = new HashMap<>();
+        this.medicos = new HashMap<>();
         this.empleados = new HashMap<>();
         this.citas = new HashMap<>();
         this.citasCompletadas = new Stack<>();
@@ -29,12 +31,12 @@ public class Database {
 
     private void EmpleadosDePrueba() {
         // Cada Medico inicializa su propia cola (ArrayDeque) en su constructor
-        empleados.put(2001, new Medico(201, "Roberto Gómez", true, "General"));
-        empleados.put(2002, new Medico(2002, "Elena Torres", true, "Pediátrico"));
-        empleados.put(2003, new Medico(2003, "Marco Díaz", true, "Neuro"));
-        empleados.put(2004, new Medico(2004, "Sofía Castro", true, "Retinólogo"));
+        medicos.put(2001, new Medico(2001, "Roberto Gómez", true, "General"));
+        medicos.put(2002, new Medico(2002, "Elena Torres", true, "Pediátrico"));
+        medicos.put(2003, new Medico(2003, "Marco Díaz", true, "Neuro"));
+        medicos.put(2004, new Medico(2004, "Sofía Castro", true, "Retinólogo"));
 
-        // Opcional: una enfermera y secretaria de prueba
+        // Opcional: una enfermera y secretaria de prueba (Empleados)
         empleados.put(3001, new Enfermera(3001, "Marta Cruz", true));
         empleados.put(4001, new Secretaria(4001, "Laura Vega", true));
     }
@@ -58,12 +60,16 @@ public class Database {
         this.pacientes = pacientes;
     }
 
+    public Map<Integer, People.Empleado> getMedicos() {
+        return medicos;
+    }
+
     public Map<Integer, People.Empleado> getEmpleados() {
         return empleados;
     }
 
-    public void setEmpleados(Map<Integer, People.Empleado> empleados) {
-        this.empleados = empleados;
+    public void setMedicos(Map<Integer, People.Empleado> empleados) {
+        this.medicos = empleados;
     }
 
     public Paciente buscarPaciente(int id) { // Método para buscar un paciente por su ID
@@ -91,7 +97,7 @@ public class Database {
     }
 
     public Medico buscarMedico(int id) { // Método para buscar un médico por su ID
-        People.Empleado empleado = empleados.get(id);
+        People.Empleado empleado = medicos.get(id);
         if (empleado instanceof Medico) {
             return (Medico) empleado;
         }
