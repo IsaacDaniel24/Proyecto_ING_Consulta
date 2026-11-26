@@ -7,20 +7,20 @@ public class Secretaria extends People.Empleado{
     // Getters y Setters
 
     // Métodos
-    // public void agregarPaciente(Paciente paciente, Medico medico) {
-    //     // añade un paciente a la lista de espera del medico correspondiente según su especialidad
+    public static void agregarPacienteACola(Paciente paciente, Medico medico) {
+        if (paciente == null || medico == null) {
+            System.out.println("Error: Paciente o médico no válido.");
+            return;
+        }
+        medico.encolarPaciente(paciente);
+        System.out.println("Paciente " + paciente.getNombre() + " añadido a la cola del Dr. " + medico.getNombre());
+    }
 
-    //     if(paciente.isEsEmergencia()) {
-    //         medico.lista_pacientes.addFirst(paciente);
-    //     } else {
-    //         medico.lista_pacientes.addLast(paciente);
-    //     }
-    // }
-
-    // public void eliminarPaciente(Paciente paciente, Medico medico) {
-    //     // elimina un paciente de la lista de espera del medico correspondiente según su especialidad
-    //     medico.lista_pacientes.remove(paciente);
-    // }
+    public static void eliminarPacienteDeCola(Paciente paciente, Medico medico) {
+        if (medico != null && paciente != null) {
+            medico.getLista_pacientes().remove(paciente);
+        }
+    }
 
     public static void registrarPaciente(Paciente paciente) {
         // Lógica para registrar un nuevo paciente
