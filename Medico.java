@@ -1,9 +1,9 @@
 import java.util.ArrayDeque;
 
-public class Medico extends People.Empleado{
+public class Medico extends People.Empleado {
     private String especialidad; // tipo de medico
     public ArrayDeque<Paciente> lista_pacientes; // lista de pacientes asignados al médico
-    
+
     public Medico(int id, String nombre, boolean is_Available, String especialidad) {
         super(id, nombre, is_Available);
         this.especialidad = especialidad;
@@ -23,16 +23,16 @@ public class Medico extends People.Empleado{
         return lista_pacientes;
     }
 
-
     // Métodos
     // Añade paciente a la lista: emergencias pasan al frente, normales al final
     public void encolarPaciente(Paciente paciente) {
-        if (paciente == null) return;
-        
+        if (paciente == null)
+            return;
+
         if (paciente.isEsEmergencia()) {
             lista_pacientes.addFirst(paciente); // Prioridad al inicio
         } else {
-            lista_pacientes.addLast(paciente);  // FIFO al final
+            lista_pacientes.addLast(paciente); // FIFO al final
         }
     }
 
@@ -62,6 +62,14 @@ public class Medico extends People.Empleado{
             System.out.println(turno + ". " + p);
             turno++;
         }
+    }
+
+    @Override
+    public String toString() {
+        return '\n' + "ID: " + getId() +
+                " | Nombre: '" + getNombre() + '\'' +
+                " | Disponible: " + is_Available() +
+                " | Especialidad: " + especialidad;
     }
 
 }

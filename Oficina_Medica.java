@@ -57,7 +57,11 @@ public class Oficina_Medica {
                             // Lógica para registrar un nuevo paciente
                             System.out.println("Ingrese ID del paciente (4 dígitos, empezando por 1):");
                             int idPaciente = scanner.nextInt();
-                            while (!Database.getInstance().validID("paciente", idPaciente, 1000, 1999)) { // por si el usuario ingresa un ID inválido o repetido
+                            while (!Database.getInstance().validID("paciente", idPaciente, 1000, 1999)) { // por si el
+                                                                                                          // usuario
+                                                                                                          // ingresa un
+                                                                                                          // ID inválido
+                                                                                                          // o repetido
                                 System.out.println("Ingrese ID del paciente (4 dígitos, empezando por 1):");
                                 idPaciente = scanner.nextInt();
                             }
@@ -71,10 +75,12 @@ public class Oficina_Medica {
                             break;
                         case 2:
                             // Lógica para registrar un nuevo empleado
-                            System.out.println("Ingrese el tipo de empleado a registrar (1. Médico, 2. Enfermera, 3. Secretaria):");
+                            System.out.println(
+                                    "Ingrese el tipo de empleado a registrar (1. Médico, 2. Enfermera, 3. Secretaria):");
                             int tipoEmpleado = scanner.nextInt();
-                            
-                            if (tipoEmpleado < 1 || tipoEmpleado > 3) { // el usuario ingresa un tipo de empleado inválido
+
+                            if (tipoEmpleado < 1 || tipoEmpleado > 3) { // el usuario ingresa un tipo de empleado
+                                                                        // inválido
                                 System.out.println("Tipo de empleado inválido. Registro cancelado.");
                                 break;
                             }
@@ -85,19 +91,36 @@ public class Oficina_Medica {
                                 case 1:
                                     System.out.println("Ingrese ID del médico (4 dígitos, empezando por 2):");
                                     int idMedico = scanner.nextInt();
-                                    while (!Database.getInstance().validID("médico", idMedico, 2000, 2999)) { // por si el usuario ingresa un ID inválido o repetido
+                                    while (!Database.getInstance().validID("médico", idMedico, 2000, 2999)) { // por si
+                                                                                                              // el
+                                                                                                              // usuario
+                                                                                                              // ingresa
+                                                                                                              // un ID
+                                                                                                              // inválido
+                                                                                                              // o
+                                                                                                              // repetido
                                         System.out.println("Ingrese ID del médico (4 dígitos, empezando por 2):");
                                         idMedico = scanner.nextInt();
                                     }
                                     scanner.nextLine();
                                     System.out.println("Ingrese la especialidad del médico:");
                                     String especialidad = scanner.nextLine();
-                                    Secretaria.registrarMedico(new Medico(idMedico, nombreEmpleado, true, especialidad));
+                                    Secretaria
+                                            .registrarMedico(new Medico(idMedico, nombreEmpleado, true, especialidad));
                                     break;
                                 case 2:
                                     System.out.println("Ingrese ID de la enfermera (4 dígitos, empezando por 3):");
                                     int idEnfermera = scanner.nextInt();
-                                    while (!Database.getInstance().validID("enfermera", idEnfermera, 3000, 3999)) { // por si el usuario ingresa un ID inválido o repetido
+                                    while (!Database.getInstance().validID("enfermera", idEnfermera, 3000, 3999)) { // por
+                                                                                                                    // si
+                                                                                                                    // el
+                                                                                                                    // usuario
+                                                                                                                    // ingresa
+                                                                                                                    // un
+                                                                                                                    // ID
+                                                                                                                    // inválido
+                                                                                                                    // o
+                                                                                                                    // repetido
                                         System.out.println("Ingrese ID de la enfermera (4 dígitos, empezando por 3):");
                                         idEnfermera = scanner.nextInt();
                                     }
@@ -106,7 +129,16 @@ public class Oficina_Medica {
                                 case 3:
                                     System.out.println("Ingrese ID de la secretaria (4 dígitos, empezando por 4):");
                                     int idSecretaria = scanner.nextInt();
-                                    while (!Database.getInstance().validID("secretaria", idSecretaria, 4000, 4999)) { // por si el usuario ingresa un ID inválido o repetido
+                                    while (!Database.getInstance().validID("secretaria", idSecretaria, 4000, 4999)) { // por
+                                                                                                                      // si
+                                                                                                                      // el
+                                                                                                                      // usuario
+                                                                                                                      // ingresa
+                                                                                                                      // un
+                                                                                                                      // ID
+                                                                                                                      // inválido
+                                                                                                                      // o
+                                                                                                                      // repetido
                                         System.out.println("Ingrese ID de la secretaria (4 dígitos, empezando por 4):");
                                         scanner.nextLine(); // Borra la entrada inválida
                                         idSecretaria = scanner.nextInt();
@@ -245,12 +277,47 @@ public class Oficina_Medica {
                     switch (subOpcion3) {
                         case 1:
                             // Lógica para ver filas de espera
+                            System.out.println("=== Filas de Espera por Médico ===");
+                            for (People.Empleado emp : Database.getInstance().getMedicos().values()) {
+                                if (emp instanceof Medico) {
+                                    Medico doc = (Medico) emp;
+                                    doc.mostrarColaEspera();
+                                }
+                            }
+
                             break;
+
                         case 2:
                             // Lógica para ver citas de hoy
+                            System.out.println("=== Citas de Hoy ===");
+                            boolean hayCitasHoy = false;
+                            for (Cita cita : Database.getInstance().getCitas().values()) {
+                                // Aquí asumimos que todas las citas en la base de datos son de hoy, ya
+                                // que no estamos manejando fechas en este ejemplo simplificado
+
+                                System.out.println(cita);
+                                hayCitasHoy = true;
+                            }
+                            if (!hayCitasHoy) {
+                                System.out.println("No hay citas programadas para hoy.");
+                            }
                             break;
+
                         case 3:
                             // Lógica para ver médicos disponibles
+                            System.out.println("=== Médicos Disponibles ===");
+                            boolean hayMedicosDisponibles = false;
+                            for (People.Empleado emp : Database.getInstance().getMedicos().values()) {
+                                if (emp instanceof Medico && emp.is_Available()) {
+                                    Medico doc = (Medico) emp;
+                                    System.out.println("ID: " + doc.getId() + " | Dr. " + doc.getNombre() + " ("
+                                            + doc.getEspecialidad() + ")");
+                                    hayMedicosDisponibles = true;
+                                }
+                            }
+                            if (!hayMedicosDisponibles) {
+                                System.out.println("No hay médicos disponibles en este momento.");
+                            }
                             break;
                     }
                     break;
