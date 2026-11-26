@@ -4,10 +4,12 @@ import java.util.Map;
 public class Database {
     private Map<Integer, People.Persona> pacientes;
     private Map<Integer, People.Empleado> empleados;
+    private Map<Integer, Cita> citas;
 
-    public Database() {
+    private Database() {
         this.pacientes = new HashMap<>();
         this.empleados = new HashMap<>();
+        this.citas = new HashMap<>();
         PacientesDePrueba();
     }
 
@@ -47,10 +49,22 @@ public class Database {
         this.empleados = empleados;
     }
 
+    public Map<Integer, Cita> getCitas() {
+        return citas;
+    }
+
     public Paciente buscarPaciente(int id) { // Método para buscar un paciente por su ID
         People.Persona persona = pacientes.get(id);
         if (persona instanceof Paciente) {
             return (Paciente) persona;
+        }
+        return null; // Retorna null si el ID no existe
+    }
+
+    public Medico buscarMedico(int id) { // Método para buscar un médico por su ID
+        People.Empleado empleado = empleados.get(id);
+        if (empleado instanceof Medico) {
+            return (Medico) empleado;
         }
         return null; // Retorna null si el ID no existe
     }

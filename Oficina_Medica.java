@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -86,9 +88,24 @@ public class Oficina_Medica {
                     switch (subOpcion2) {
                         case 1:
                             // Lógica para agendar una cita
+                            System.out.println("Ingrese ID de la cita (2 dígitos):");
+                            int idCita = scanner.nextInt();
+                            System.out.println("Ingrese ID del paciente:");
+                            int idPaciente = scanner.nextInt();
+                            System.out.println("Ingrese ID del médico:");
+                            int idMedico = scanner.nextInt();
+                            scanner.nextLine(); // Limpiar el buffer
+                            System.out.println("Ingrese la fecha y hora de la cita (yyyy-MM-dd HH:mm):");
+                            String fechaHoraStr = scanner.nextLine();
+                            LocalDateTime fechaHora = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").parse(fechaHoraStr, LocalDateTime::from);
+                            Secretaria.agendarCita(idCita, Database.getInstance().buscarPaciente(idPaciente), Database.getInstance().buscarMedico(idMedico), fechaHora);
+                            System.out.println("Cita agendada exitosamente!");
                             break;
                         case 2:
                             // Lógica para cancelar una cita
+                            System.out.println("Ingrese ID de la cita a cancelar:");
+                            int idCitaCancelar = scanner.nextInt();
+                            Secretaria.cancelarCita(idCitaCancelar);
                             break;
                     }
                     break;
@@ -108,6 +125,21 @@ public class Oficina_Medica {
                                                                                                               // para
                                                                                                               // ver
                                                                                                               // consultas
+                    System.out.println("1. Ver Filas de Espera");
+                    System.out.println("2. Ver Citas de Hoy");
+                    System.out.println("3. Ver Médicos Disponibles");
+                    int subOpcion3 = scanner.nextInt();
+                    switch (subOpcion3) {
+                        case 1:
+                            // Lógica para ver filas de espera
+                            break;
+                        case 2:
+                            // Lógica para ver citas de hoy
+                            break;
+                        case 3:
+                            // Lógica para ver médicos disponibles
+                            break;
+                    }                                                                                          
                     break;
 
                 case 6:
