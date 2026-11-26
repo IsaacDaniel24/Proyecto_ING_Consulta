@@ -65,6 +65,6 @@ public class Paciente extends People.Persona {
     @Override
     public String toString() {
         String prioridad = esEmergencia ? "Emergencia" : "Normal";
-        return "ID: " + getId() + " | Nombre: " + getNombre() + " | Prioridad: " + prioridad;
+        return '\n' + "ID: " + getId() + " | Nombre: " + getNombre() + " | Prioridad: " + prioridad;
     }
 }

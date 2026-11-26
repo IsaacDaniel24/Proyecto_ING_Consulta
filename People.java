@@ -23,11 +23,18 @@ public class People {
 
         public Empleado(int id, String nombre, boolean is_Available) {
             super(id, nombre);
-            this.is_Available = true; // Por defecto, el empleado está disponible al crearse
+            this.is_Available = is_Available;
         }
 
         public boolean is_Available() {
             return is_Available;
+        }
+
+        @Override
+        public String toString() {
+            return '\n' + "ID: " + getId() +
+                    " | Nombre: '" + getNombre() + '\'' +
+                    " | Disponible: " + is_Available();
         }
     }
 
