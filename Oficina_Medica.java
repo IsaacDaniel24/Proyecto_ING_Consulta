@@ -57,9 +57,8 @@ public class Oficina_Medica {
                             // Lógica para registrar un nuevo paciente
                             System.out.println("Ingrese ID del paciente (4 dígitos, empezando por 1):");
                             int idPaciente = scanner.nextInt();
-                            while (idPaciente < 1000 || idPaciente > 1999) { // por si el usuario ingresa un ID que no sea de paciente
-                                System.out.println("ID inválido para paciente. Debe ser un número de 4 dígitos empezando por 1.\nIngrese ID del paciente (4 dígitos, empezando por 1):");
-                                scanner.nextLine(); // Borra la entrada inválida
+                            while (!Database.getInstance().validID("paciente", idPaciente, 1000, 1999)) { // por si el usuario ingresa un ID inválido o repetido
+                                System.out.println("Ingrese ID del paciente (4 dígitos, empezando por 1):");
                                 idPaciente = scanner.nextInt();
                             }
                             System.out.println("Ingrese nombre del paciente:");
@@ -86,9 +85,8 @@ public class Oficina_Medica {
                                 case 1:
                                     System.out.println("Ingrese ID del médico (4 dígitos, empezando por 2):");
                                     int idMedico = scanner.nextInt();
-                                    while (idMedico < 2000 || idMedico > 2999) { // por si el usuario ingresa un ID que no sea de médico
-                                        System.out.println("ID inválido para médico. Debe ser un número de 4 dígitos empezando por 2. \nIngrese ID del médico (4 dígitos, empezando por 2):");
-                                        scanner.nextLine(); // Borra la entrada inválida
+                                    while (!Database.getInstance().validID("médico", idMedico, 2000, 2999)) { // por si el usuario ingresa un ID inválido o repetido
+                                        System.out.println("Ingrese ID del médico (4 dígitos, empezando por 2):");
                                         idMedico = scanner.nextInt();
                                     }
                                     scanner.nextLine();
@@ -99,9 +97,8 @@ public class Oficina_Medica {
                                 case 2:
                                     System.out.println("Ingrese ID de la enfermera (4 dígitos, empezando por 3):");
                                     int idEnfermera = scanner.nextInt();
-                                    while (idEnfermera < 3000 || idEnfermera > 3999) { // por si el usuario ingresa un ID que no sea de enfermera
-                                        System.out.println("ID inválido para enfermera. Debe ser un número de 4 dígitos empezando por 3. \nIngrese ID de la enfermera (4 dígitos, empezando por 3):");
-                                        scanner.nextLine(); // Borra la entrada inválida
+                                    while (!Database.getInstance().validID("enfermera", idEnfermera, 3000, 3999)) { // por si el usuario ingresa un ID inválido o repetido
+                                        System.out.println("Ingrese ID de la enfermera (4 dígitos, empezando por 3):");
                                         idEnfermera = scanner.nextInt();
                                     }
                                     Secretaria.registrarEmpleado(new Enfermera(idEnfermera, nombreEmpleado, true));
@@ -109,8 +106,8 @@ public class Oficina_Medica {
                                 case 3:
                                     System.out.println("Ingrese ID de la secretaria (4 dígitos, empezando por 4):");
                                     int idSecretaria = scanner.nextInt();
-                                    while (idSecretaria < 4000 || idSecretaria > 4999) { // por si el usuario ingresa un ID que no sea de secretaria
-                                        System.out.println("ID inválido para secretaria. Debe ser un número de 4 dígitos empezando por 4. \nIngrese ID de la secretaria (4 dígitos, empezando por 4):");
+                                    while (!Database.getInstance().validID("secretaria", idSecretaria, 4000, 4999)) { // por si el usuario ingresa un ID inválido o repetido
+                                        System.out.println("Ingrese ID de la secretaria (4 dígitos, empezando por 4):");
                                         scanner.nextLine(); // Borra la entrada inválida
                                         idSecretaria = scanner.nextInt();
                                     }

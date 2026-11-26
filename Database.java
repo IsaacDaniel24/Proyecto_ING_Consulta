@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.Map;
-
 import java.util.Stack;
 
 public class Database {
@@ -70,6 +69,19 @@ public class Database {
 
     public void setMedicos(Map<Integer, People.Empleado> empleados) {
         this.medicos = empleados;
+    }
+
+    public boolean validID(String persona, int id, int min, int max) { // Método para verificar si el ID es válido y único 
+        if (id < min || id > max) { // Verifica si el ID está dentro del rango permitido para el tipo de persona
+            System.out.println("ID inválido para " + persona + ". Debe ser un número de 4 dígitos empezando por " + (min / 1000) + ".");
+            return false;
+        } else if (pacientes.containsKey(id) || medicos.containsKey(id) || empleados.containsKey(id)) { // Verifica si el ID ya existe en la base de datos
+            System.out.println("ID ya existe en la base de datos. Por favor, ingrese un ID único.");
+            return false;
+
+        }
+        return true;
+
     }
 
     public Paciente buscarPaciente(int id) { // Método para buscar un paciente por su ID
