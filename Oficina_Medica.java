@@ -55,8 +55,13 @@ public class Oficina_Medica {
                     switch (subOpcion) {
                         case 1:
                             // Lógica para registrar un nuevo paciente
-                            System.out.println("Ingrese ID del paciente (4 dígitos):");
+                            System.out.println("Ingrese ID del paciente (4 dígitos, empezando por 1):");
                             int idPaciente = scanner.nextInt();
+                            while (idPaciente < 1000 || idPaciente > 1999) { // por si el usuario ingresa un ID que no sea de paciente
+                                System.out.println("ID inválido para paciente. Debe ser un número de 4 dígitos empezando por 1.\nIngrese ID del paciente (4 dígitos, empezando por 1):");
+                                scanner.nextLine(); // Borra la entrada inválida
+                                idPaciente = scanner.nextInt();
+                            }
                             System.out.println("Ingrese nombre del paciente:");
                             scanner.nextLine();
                             String nombrePaciente = scanner.nextLine();
@@ -67,12 +72,51 @@ public class Oficina_Medica {
                             break;
                         case 2:
                             // Lógica para registrar un nuevo empleado
-                            System.out.println("Ingrese ID del empleado (4 dígitos):");
-                            int idEmpleado = scanner.nextInt();
-                            System.out.println("Ingrese nombre del empleado:");
+                            System.out.println("Ingrese el tipo de empleado a registrar (1. Médico, 2. Enfermera, 3. Secretaria):");
+                            int tipoEmpleado = scanner.nextInt();
+                            
+                            if (tipoEmpleado < 1 || tipoEmpleado > 3) { // el usuario ingresa un tipo de empleado inválido
+                                System.out.println("Tipo de empleado inválido. Registro cancelado.");
+                                break;
+                            }
                             scanner.nextLine();
+                            System.out.println("Ingrese el nombre del empleado:");
                             String nombreEmpleado = scanner.nextLine();
-                            Secretaria.registrarEmpleado(new People.Empleado(idEmpleado, nombreEmpleado, true));
+                            switch (tipoEmpleado) {
+                                case 1:
+                                    System.out.println("Ingrese ID del médico (4 dígitos, empezando por 2):");
+                                    int idMedico = scanner.nextInt();
+                                    while (idMedico < 2000 || idMedico > 2999) { // por si el usuario ingresa un ID que no sea de médico
+                                        System.out.println("ID inválido para médico. Debe ser un número de 4 dígitos empezando por 2. \nIngrese ID del médico (4 dígitos, empezando por 2):");
+                                        scanner.nextLine(); // Borra la entrada inválida
+                                        idMedico = scanner.nextInt();
+                                    }
+                                    scanner.nextLine();
+                                    System.out.println("Ingrese la especialidad del médico:");
+                                    String especialidad = scanner.nextLine();
+                                    Secretaria.registrarMedico(new Medico(idMedico, nombreEmpleado, true, especialidad));
+                                    break;
+                                case 2:
+                                    System.out.println("Ingrese ID de la enfermera (4 dígitos, empezando por 3):");
+                                    int idEnfermera = scanner.nextInt();
+                                    while (idEnfermera < 3000 || idEnfermera > 3999) { // por si el usuario ingresa un ID que no sea de enfermera
+                                        System.out.println("ID inválido para enfermera. Debe ser un número de 4 dígitos empezando por 3. \nIngrese ID de la enfermera (4 dígitos, empezando por 3):");
+                                        scanner.nextLine(); // Borra la entrada inválida
+                                        idEnfermera = scanner.nextInt();
+                                    }
+                                    Secretaria.registrarEmpleado(new Enfermera(idEnfermera, nombreEmpleado, true));
+                                    break;
+                                case 3:
+                                    System.out.println("Ingrese ID de la secretaria (4 dígitos, empezando por 4):");
+                                    int idSecretaria = scanner.nextInt();
+                                    while (idSecretaria < 4000 || idSecretaria > 4999) { // por si el usuario ingresa un ID que no sea de secretaria
+                                        System.out.println("ID inválido para secretaria. Debe ser un número de 4 dígitos empezando por 4. \nIngrese ID de la secretaria (4 dígitos, empezando por 4):");
+                                        scanner.nextLine(); // Borra la entrada inválida
+                                        idSecretaria = scanner.nextInt();
+                                    }
+                                    Secretaria.registrarEmpleado(new Secretaria(idSecretaria, nombreEmpleado, true));
+                                    break;
+                            }
                             System.out.println("Empleado registrado exitosamente!");
                             break;
                     }
