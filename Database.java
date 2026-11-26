@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import java.util.Stack;
+
 public class Database {
     private Map<Integer, People.Persona> pacientes;
     private Map<Integer, People.Empleado> empleados;
@@ -32,13 +33,14 @@ public class Database {
         empleados.put(202, new Medico(202, "Elena Torres", true, "Pediátrico"));
         empleados.put(203, new Medico(203, "Marco Díaz", true, "Neuro"));
         empleados.put(204, new Medico(204, "Sofía Castro", true, "Retinólogo"));
-        
+
         // Opcional: una enfermera y secretaria de prueba
         empleados.put(301, new Enfermera(301, "Marta Cruz", true));
         empleados.put(401, new Secretaria(401, "Laura Vega", true));
     }
 
-    // Singleton pattern para asegurar que haya solamente una instancia de la base de datos
+    // Singleton pattern para asegurar que haya solamente una instancia de la base
+    // de datos
     private static class DatabaseHolder {
         private static final Database INSTANCE = new Database();
     }
@@ -87,5 +89,12 @@ public class Database {
     public void setCitasCompletadas(Stack<Cita> citasCompletadas) {
         this.citasCompletadas = citasCompletadas;
     }
-    
+
+    public Medico buscarMedico(int id) { // Método para buscar un médico por su ID
+        People.Empleado empleado = empleados.get(id);
+        if (empleado instanceof Medico) {
+            return (Medico) empleado;
+        }
+        return null; // Retorna null si el ID no existe
+    }
 }
