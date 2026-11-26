@@ -22,21 +22,21 @@ public class Database {
         Paciente p1 = new Paciente(1001, "Ana Sofía Rivera", false);
         p1.agregarNotaHistorial("Chequeo general: todo en orden.");
 
-        pacientes.put(101, p1);
-        pacientes.put(102, new Paciente(1002, "Carlos Méndez", true));
-        pacientes.put(103, new Paciente(1003, "Lucía Morales", false));
+        pacientes.put(1001, p1);
+        pacientes.put(1002, new Paciente(1002, "Carlos Méndez", true));
+        pacientes.put(1003, new Paciente(1003, "Lucía Morales", false));
     }
 
     private void EmpleadosDePrueba() {
         // Cada Medico inicializa su propia cola (ArrayDeque) en su constructor
-        empleados.put(201, new Medico(201, "Roberto Gómez", true, "General"));
-        empleados.put(202, new Medico(202, "Elena Torres", true, "Pediátrico"));
-        empleados.put(203, new Medico(203, "Marco Díaz", true, "Neuro"));
-        empleados.put(204, new Medico(204, "Sofía Castro", true, "Retinólogo"));
+        empleados.put(2001, new Medico(201, "Roberto Gómez", true, "General"));
+        empleados.put(2002, new Medico(2002, "Elena Torres", true, "Pediátrico"));
+        empleados.put(2003, new Medico(2003, "Marco Díaz", true, "Neuro"));
+        empleados.put(2004, new Medico(2004, "Sofía Castro", true, "Retinólogo"));
 
         // Opcional: una enfermera y secretaria de prueba
-        empleados.put(301, new Enfermera(301, "Marta Cruz", true));
-        empleados.put(401, new Secretaria(401, "Laura Vega", true));
+        empleados.put(3001, new Enfermera(3001, "Marta Cruz", true));
+        empleados.put(4001, new Secretaria(4001, "Laura Vega", true));
     }
 
     // Singleton pattern para asegurar que haya solamente una instancia de la base
