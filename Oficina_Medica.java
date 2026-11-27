@@ -59,8 +59,13 @@ public class Oficina_Medica {
                             scanner.nextLine();
                             String nombrePaciente = scanner.nextLine();
                             System.out.println("¿Es emergencia? (true/false):");
-                            boolean esEmergencia = scanner.nextBoolean();
-                            Secretaria.registrarPaciente(new Paciente(idPaciente, nombrePaciente, esEmergencia));
+                            String esEmergencia = scanner.nextLine();
+                            while (!esEmergencia.equals("true") && !esEmergencia.equals("false")) {
+                                System.out.println("Entrada inválida para emergencia. Por favor, ingrese 'true' o 'false'.");
+                                System.out.println("¿Es emergencia? (true/false):");
+                                esEmergencia = scanner.nextLine();
+                            }
+                            Secretaria.registrarPaciente(new Paciente(idPaciente, nombrePaciente, Boolean.parseBoolean(esEmergencia))); // parse convierte el string a boolean
                             System.out.println("Paciente registrado exitosamente! (ID asignado: " + idPaciente + ")");
                             break;
                         case 2:
