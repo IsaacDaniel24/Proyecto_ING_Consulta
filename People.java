@@ -1,5 +1,7 @@
 public class People {
 
+    // Clase interna para representar a una persona, la base de las clases de
+    // empleados y pacientes
     public static class Persona {
         private int id;
         private String nombre;
@@ -19,6 +21,8 @@ public class People {
     }
 
     public static class Empleado extends Persona {
+        // Clase interna para representar a un empleado, que puede ser un médico,
+        // enfermera o secretaria
         private boolean is_Available;
 
         public Empleado(int id, String nombre, boolean is_Available) {

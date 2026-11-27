@@ -4,11 +4,11 @@
 Sistema de Gestión de Oficina Médica
 
 ## 2. Descripción
-Aplicación de consola desarrollada en Java para la clase de Estructura de Datos. El sistema simula el flujo operativo completo de una oficina médica utilizando "object oriented programming" y estructuras de datos seleccionadas según la eficiencia requerida por cada módulo. En el mismo se utilizaron estructuras como HashMap para almacenamiento y búsqueda instantánea por ID único para pacientes (`1000–1999`), médicos (`2000–2999`), enfermeras (`3000–3999`), secretarias (`4000–4999`) y citas (`100–999`) dentro de la base de datos. ArrayDeques para que cada médico administre su propia fila de espera. Los pacientes de emergencia ingresan al inicio de la cola y los pacientes regulares al final. LinkedList para almacenar de forma secuencial las notas de signos vitales y diagnósticos médicos en el historial clínico de cada paciente. Finalmente, Stacks para el registro de citas completadas.
+Aplicación de consola desarrollada en Java para la clase de Estructura de Datos. El sistema simula el flujo operativo completo de una oficina médica utilizando "object oriented programming" y estructuras de datos seleccionadas según la eficiencia requerida por cada módulo. En el mismo se utilizaron estructuras como HashMap para almacenamiento y búsqueda instantánea por ID único para pacientes (`1000–1999`), médicos (`2000–2999`), enfermeras (`3000–3999`), secretarias (`4000–4999`) y citas (`100–999`) dentro de la base de datos. ArrayDeques para que cada médico administre su propia fila de espera. Los pacientes de emergencia ingresan al inicio de la cola y los pacientes regulares al final. LinkedList para almacenar de forma secuencial las notas de signos vitales y diagnósticos médicos en el historial clínico de cada paciente. Finalmente, Stacks para el registro de citas completadas. La clase de Oficina_Medica funciona como el "main" class. 
 
 ## 3. Instalación
 1. Verifica que tengas instalado **Java JDK 11 o superior**.
-2. Clona el repositorio y habrelo atravez de VSCode.
+2. Clona el repositorio y abrelo atravez de VSCode.
 3. Presionar el botton de Run and Debug.
 
 
@@ -25,6 +25,6 @@ N/A
 
 ## 6. Autores o Agradecimientos
 **Autores:**
-1. Isaac
+1. Isaac Montalvo Areizaga (isaac.montalvo@upr.edu) (802-24-7649)
 2. Norelis Carreras Claudio (norelis.carreras@upr.edu) (802-24-3927)
 3. Gabriel A. Borrero Jiménez (gabriel.borrero1@upr.edu) (802-20-0150)
