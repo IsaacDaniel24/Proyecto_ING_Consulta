@@ -59,7 +59,8 @@ public class Secretaria extends People.Empleado {
         // Cancelar una cita existente
         Cita cita = Database.getInstance().getCitas().get(idCita);
         if (cita != null) {
-            Database.getInstance().getCitas().remove(idCita); // Elimina la cita de la base de datos
+            cita.cancelarCita(); // Cambia el estado de la cita a "Cancelada"
+            // Database.getInstance().getCitas().remove(idCita); // Elimina la cita de la base de datos
             System.out.println("Cita con ID " + idCita + " cancelada exitosamente.");
         } else {
             System.out.println("Error: No se encontró la cita con ID " + idCita);
