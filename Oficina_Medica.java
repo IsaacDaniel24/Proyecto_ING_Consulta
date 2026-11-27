@@ -61,7 +61,7 @@ public class Oficina_Medica {
                             System.out.println("¿Es emergencia? (true/false):");
                             boolean esEmergencia = scanner.nextBoolean();
                             Secretaria.registrarPaciente(new Paciente(idPaciente, nombrePaciente, esEmergencia));
-                            System.out.println("Paciente registrado exitosamente!");
+                            System.out.println("Paciente registrado exitosamente! (ID asignado: " + idPaciente + ")");
                             break;
                         case 2:
                             // Lógica para registrar un nuevo empleado
@@ -376,18 +376,18 @@ public class Oficina_Medica {
                             break;
 
                         case 2:
-                            // Lógica para ver citas de hoy
-                            System.out.println("=== Citas de Hoy ===");
-                            boolean hayCitasHoy = false;
-                            for (Cita cita : Database.getInstance().getCitas().values()) {
-                                // Aquí asumimos que todas las citas en la base de datos son de hoy, ya
-                                // que no estamos manejando fechas
-
-                                System.out.println(cita);
-                                hayCitasHoy = true;
-                            }
-                            if (!hayCitasHoy) {
-                                System.out.println("No hay citas programadas para hoy.");
+                            System.out.println("=== Citas de Hoy (Agenda y Walk-ins) ===");
+                            if (Database.getInstance().getCitas().isEmpty()) {
+                                System.out.println("No hay citas registradas para hoy.");
+                            } else {
+                                for (Cita cita : Database.getInstance().getCitas().values()) {
+                                    boolean enFila = Database.getInstance()
+                                            .buscarMedicoDePacienteEnCola(cita.getPaciente().getId()) != null;
+                                    String ubicacion = cita.getEstado().equals("Pendiente")
+                                            ? (enFila ? " [En sala de espera]" : " [Sin Check-in]")
+                                            : "";
+                                    System.out.println(cita + ubicacion);
+                                }
                             }
                             break;
 

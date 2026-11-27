@@ -124,4 +124,18 @@ public class Database {
         }
         return null; // Retorna null si el ID no existe
     }
+
+    public Medico buscarMedicoDePacienteEnCola(int idPaciente) {
+        for (People.Empleado emp : medicos.values()) {
+            if (emp instanceof Medico) {
+                Medico doc = (Medico) emp;
+                for (Paciente p : doc.getLista_pacientes()) {
+                    if (p.getId() == idPaciente) {
+                        return doc; // Retorna el médico en cuya cola ya está el paciente
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }

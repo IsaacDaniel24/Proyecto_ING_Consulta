@@ -25,16 +25,23 @@ public class Medico extends People.Empleado {
 
     // Métodos
     // Añade paciente a la lista: emergencias pasan al frente, normales al final
-    public void encolarPaciente(Paciente paciente) {
-        if (paciente == null)
-            return;
+    public boolean encolarPaciente(Paciente paciente) {
+        if (paciente == null) return false;
 
-        if (paciente.isEsEmergencia()) {
-            lista_pacientes.addFirst(paciente); // Prioridad al inicio
-        } else {
-            lista_pacientes.addLast(paciente); // FIFO al final
+        // Verificar si ya está en la cola de este médico
+        for (Paciente p : lista_pacientes) {
+            if (p.getId() == paciente.getId()) {
+                return false;
+            }
         }
+
+    if (paciente.isEsEmergencia()) {
+        lista_pacientes.addFirst(paciente); // Prioridad al inicio
+    } else {
+        lista_pacientes.addLast(paciente);  // FIFO al final
     }
+    return true;
+}
 
     // Sacar y retornar al siguiente paciente en turno (FIFO / Prioridad)
     public Paciente atenderSiguientePaciente() {

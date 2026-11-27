@@ -8,19 +8,40 @@ public class Secretaria extends People.Empleado {
     // Getters y Setters
 
     // Métodos
-    public static void agregarPacienteACola(Paciente paciente, Medico medico) {
+    public static boolean agregarPacienteACola(Paciente paciente, Medico medico) {
         if (paciente == null || medico == null) {
             System.out.println("Error: Paciente o médico no válido.");
-            return;
+            return false;
         }
-        medico.encolarPaciente(paciente);
-        System.out.println("Paciente " + paciente.getNombre() + " añadido a la cola del Dr. " + medico.getNombre());
+
+        // 1. Evitar que el paciente esté duplicado en esta u otra fila
+        Medico medicoActual = Database.getInstance().buscarMedicoDePacienteEnCola(paciente.getId());
+        if (medicoActual != null) {
+            System.out.println("Error: El paciente " + paciente.getNombre()
+                    + " ya se encuentra en la fila de espera del Dr. " + medicoActual.getNombre() + ".");
+            return false;
+        }
+
+        // 2. Encolar al paciente
+        boolean encolado = medico.encolarPaciente(paciente);
+        if (encolado) {
+            // 3. Si entró sin cita previa (walk-in), crearle una Cita automática para que aparezca en Citas de Hoy
+            if (!Database.getInstance().pacienteTieneCita(paciente.getId())) {
+                int idCitaAuto = generarIdCitaAutomatico();
+                agendarCita(idCitaAuto, paciente, medico);
+                System.out.println("Se generó automáticamente la Cita #" + idCitaAuto + " para este ingreso.");
+            }
+            System.out.println("Paciente " + paciente.getNombre() + " añadido a la cola del Dr. " + medico.getNombre());
+        }
+        return encolado;
     }
 
-    public static void eliminarPacienteDeCola(Paciente paciente, Medico medico) {
-        if (medico != null && paciente != null) {
-            medico.getLista_pacientes().remove(paciente);
+    private static int generarIdCitaAutomatico() {
+        int id = 100;
+        while (Database.getInstance().getCitas().containsKey(id)) {
+            id++;
         }
+        return id;
     }
 
     public static void registrarPaciente(Paciente paciente) {
