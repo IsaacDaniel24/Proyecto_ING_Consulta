@@ -1,5 +1,4 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.LinkedList;
 
 public class Paciente extends People.Persona {
@@ -34,11 +33,7 @@ public class Paciente extends People.Persona {
             return;
         }
 
-        // Obtener fecha y hora actual formateada para mantener orden cronológico
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        String fechaActual = LocalDateTime.now().format(formato);
-
-        String registroCompleto = "[" + fechaActual + "] " + notaMedica.trim();
+        String registroCompleto = notaMedica.trim();
         historialClinico.add(registroCompleto);
     }
 

@@ -1,19 +1,15 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Cita {
     private int idCita;
     private Paciente paciente;
     private Medico medico;
-    private LocalDateTime fechaHora;
     private String signosVitales;
     private String estado; // "Pendiente", "Completada", "Cancelada"
 
-    public Cita(int idCita, Paciente paciente, Medico medico, LocalDateTime fechaHora) {
+    public Cita(int idCita, Paciente paciente, Medico medico) {
         this.idCita = idCita;
         this.paciente = paciente;
         this.medico = medico;
-        this.fechaHora = fechaHora;
         this.signosVitales = "No registrados";
         this.estado = "Pendiente";
     }
@@ -31,10 +27,6 @@ public class Cita {
         return medico;
     }
 
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
-    }
-
     public String getSignosVitales() {
         return signosVitales;
     }
@@ -45,7 +37,8 @@ public class Cita {
 
     // --- Métodos del flujo del sistema ---
 
-    // Paso 2 (Triage - Enfermera): Actualiza los signos vitales antes de pasar al médico
+    // Paso 2 (Triage - Enfermera): Actualiza los signos vitales antes de pasar al
+    // médico
     public void registrarSignosVitales(String signosVitales) {
         if (signosVitales == null || signosVitales.trim().isEmpty()) {
             System.out.println("Error: Los signos vitales no pueden estar vacíos.");
@@ -70,12 +63,10 @@ public class Cita {
 
     @Override
     public String toString() {
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return "Cita #" + idCita +
-               " | Fecha: " + fechaHora.format(formato) +
-               " | Paciente: " + paciente.getNombre() +
-               " | Médico: Dr. " + medico.getNombre() + " (" + medico.getEspecialidad() + ")" +
-               " | Signos: [" + signosVitales + "]" +
-               " | Estado: " + estado;
+                " | Paciente: " + paciente.getNombre() +
+                " | Médico: Dr. " + medico.getNombre() + " (" + medico.getEspecialidad() + ")" +
+                " | Signos: [" + signosVitales + "]" +
+                " | Estado: " + estado;
     }
 }

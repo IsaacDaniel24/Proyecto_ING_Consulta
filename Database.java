@@ -1,15 +1,17 @@
 import java.util.HashMap;
 import java.util.Map;
-
 import java.util.Stack;
+
 public class Database {
     private Map<Integer, People.Persona> pacientes;
+    private Map<Integer, People.Empleado> medicos;
     private Map<Integer, People.Empleado> empleados;
     private Map<Integer, Cita> citas;
     private Stack<Cita> citasCompletadas;
 
     public Database() {
         this.pacientes = new HashMap<>();
+        this.medicos = new HashMap<>();
         this.empleados = new HashMap<>();
         this.citas = new HashMap<>();
         this.citasCompletadas = new Stack<>();
@@ -28,17 +30,18 @@ public class Database {
 
     private void EmpleadosDePrueba() {
         // Cada Medico inicializa su propia cola (ArrayDeque) en su constructor
-        empleados.put(201, new Medico(201, "Roberto Gómez", true, "General"));
-        empleados.put(202, new Medico(202, "Elena Torres", true, "Pediátrico"));
-        empleados.put(203, new Medico(203, "Marco Díaz", true, "Neuro"));
-        empleados.put(204, new Medico(204, "Sofía Castro", true, "Retinólogo"));
-        
-        // Opcional: una enfermera y secretaria de prueba
-        empleados.put(301, new Enfermera(301, "Marta Cruz", true));
-        empleados.put(401, new Secretaria(401, "Laura Vega", true));
+        medicos.put(2001, new Medico(2001, "Roberto Gómez", true, "General"));
+        medicos.put(2002, new Medico(2002, "Elena Torres", true, "Pediátrico"));
+        medicos.put(2003, new Medico(2003, "Marco Díaz", true, "Neuro"));
+        medicos.put(2004, new Medico(2004, "Sofía Castro", true, "Retinólogo"));
+
+        // Opcional: una enfermera y secretaria de prueba (Empleados)
+        empleados.put(3001, new Enfermera(3001, "Marta Cruz", true));
+        empleados.put(4001, new Secretaria(4001, "Laura Vega", true));
     }
 
-    // Singleton pattern para asegurar que haya solamente una instancia de la base de datos
+    // Singleton pattern para asegurar que haya solamente una instancia de la base
+    // de datos
     private static class DatabaseHolder {
         private static final Database INSTANCE = new Database();
     }
@@ -56,12 +59,29 @@ public class Database {
         this.pacientes = pacientes;
     }
 
+    public Map<Integer, People.Empleado> getMedicos() {
+        return medicos;
+    }
+
     public Map<Integer, People.Empleado> getEmpleados() {
         return empleados;
     }
 
-    public void setEmpleados(Map<Integer, People.Empleado> empleados) {
-        this.empleados = empleados;
+    public void setMedicos(Map<Integer, People.Empleado> empleados) {
+        this.medicos = empleados;
+    }
+
+    public boolean validID(String persona, int id, int min, int max) { // Método para verificar si el ID es válido y único 
+        if (id < min || id > max) { // Verifica si el ID está dentro del rango permitido para el tipo de persona
+            System.out.println("ID inválido para " + persona + ". Debe ser un número de 4 dígitos empezando por " + (min / 1000) + ".");
+            return false;
+        } else if (pacientes.containsKey(id) || medicos.containsKey(id) || empleados.containsKey(id)) { // Verifica si el ID ya existe en la base de datos
+            System.out.println("ID ya existe en la base de datos. Por favor, ingrese un ID único.");
+            return false;
+
+        }
+        return true;
+
     }
 
     public Paciente buscarPaciente(int id) { // Método para buscar un paciente por su ID
@@ -72,6 +92,15 @@ public class Database {
         return null; // Retorna null si el ID no existe
     }
 
+    public boolean pacienteTieneCita(int idPaciente) { // Método para verificar si un paciente tiene una cita agendada
+        for (Cita cita : citas.values()) {
+            if (cita.getPaciente().getId() == idPaciente && !cita.getEstado().equals("Cancelada") && !cita.getEstado().equals("Completada")) {
+                return true; // Retorna true si el paciente tiene una cita pendiente
+            }
+        }
+        return false; // Retorna false si el paciente no tiene citas agendadas pendientes
+    }
+    
     public Map<Integer, Cita> getCitas() {
         return citas;
     }
@@ -87,5 +116,12 @@ public class Database {
     public void setCitasCompletadas(Stack<Cita> citasCompletadas) {
         this.citasCompletadas = citasCompletadas;
     }
-    
+
+    public Medico buscarMedico(int id) { // Método para buscar un médico por su ID
+        People.Empleado empleado = medicos.get(id);
+        if (empleado instanceof Medico) {
+            return (Medico) empleado;
+        }
+        return null; // Retorna null si el ID no existe
+    }
 }
