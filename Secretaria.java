@@ -52,23 +52,13 @@ public class Secretaria extends People.Empleado {
         // Agendar una cita para un paciente con un médico específico
         Cita nuevaCita = new Cita(idCita, paciente, medico);
         Database.getInstance().getCitas().put(idCita, nuevaCita); // Agrega la cita al HashMap de citas en la base de
-                                                                  // datos
-        // Agregar al paciente a la lista de pacientes del médico
-        if (paciente.isEsEmergencia()) {
-            medico.lista_pacientes.addFirst(paciente);
-        } else {
-            medico.lista_pacientes.addLast(paciente);
-        }
-    }
+    }                                                             // datos        
+    
 
     public static void cancelarCita(int idCita) {
         // Cancelar una cita existente
         Cita cita = Database.getInstance().getCitas().get(idCita);
         if (cita != null) {
-            // Eliminar al paciente de la lista de pacientes del médico
-            Medico medico = cita.getMedico();
-            Paciente paciente = cita.getPaciente();
-            medico.lista_pacientes.remove(paciente);
             Database.getInstance().getCitas().remove(idCita); // Elimina la cita de la base de datos
             System.out.println("Cita con ID " + idCita + " cancelada exitosamente.");
         } else {

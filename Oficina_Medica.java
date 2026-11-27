@@ -25,7 +25,7 @@ public class Oficina_Medica {
                     + "1 . Registrar Nuevo Paciente / Empleado\n"
                     + "2 . Agendar / Cancelar Cita\n"
                     + "3 . Entrada de Paciente a Fila de Espera (Check-in)\n"
-                    + "4 . Atender Siguiente Paciente (Enfermero → > Médico)\n"
+                    + "4 . Atender Siguiente Paciente (Enfermero -> Médico)\n"
                     + "5 . Consultas (Ver filas de espera, Citas de Hoy, Médicos disponibles)\n"
                     + "6 . Ver Historial Clínico de un Paciente\n"
                     + "7 . Salir\n"
@@ -160,17 +160,44 @@ public class Oficina_Medica {
                     switch (subOpcion2) {
                         case 1:
                             // Lógica para agendar una cita
-                            System.out.println("Ingrese ID de la cita (4 dígitos):");
+                            System.out.println("Ingrese ID de la cita (3 dígitos):");
                             int idCita = scanner.nextInt();
+                            while (idCita < 100 || idCita > 999 || Database.getInstance().getCitas().containsKey(idCita)) { // por si el usuario ingresa un ID inválido o repetido
+                                System.out.println("ID inválido o ya existe. Debe ser un número de 3 dígitos único.");
+                                System.out.println("Ingrese ID de la cita (3 dígitos):");
+                                idCita = scanner.nextInt();
+                            }
                             System.out.println("Ingrese ID del paciente:");
                             int idPaciente = scanner.nextInt();
+                            if (Database.getInstance().buscarPaciente(idPaciente) == null) { // ID de paciente que no existe
+                                System.out.println("Paciente no encontrado. Por favor, registre al paciente primero.");
+                                break;
+                            } else if (Database.getInstance().pacienteTieneCita(idPaciente)) { // Verifica si el paciente ya tiene una cita agendada
+                                System.out.println("Error: " + Database.getInstance().buscarPaciente(idPaciente).getNombre() + " ya tiene una cita agendada.");
+                                break;
+                                
+                            } else {
+                                System.out.println("Paciente encontrado: " + Database.getInstance().buscarPaciente(idPaciente));
+                            }
+                            System.out.println("=== Médicos ===");
+                            for (People.Empleado emp : Database.getInstance().getMedicos().values()) { // imprime la lista de médicos para que el usuario pueda elegir
+                                if (emp instanceof Medico) {
+                            Medico doc = (Medico) emp;
+                            System.out.println("ID: " + doc.getId() + " | Dr. " + doc.getNombre() + " ("
+                                    + doc.getEspecialidad() + ")");
+                                }
+                            }
                             System.out.println("Ingrese ID del médico:");
                             int idMedico = scanner.nextInt();
+                            if (Database.getInstance().buscarMedico(idMedico) == null) {
+                                System.out.println("Médico no encontrado. Por favor, registre al médico primero.");
+                                break;
+                            }
                             scanner.nextLine(); // Limpiar el buffer
 
                             Secretaria.agendarCita(idCita, Database.getInstance().buscarPaciente(idPaciente),
                                     Database.getInstance().buscarMedico(idMedico));
-                            System.out.println("Cita agendada exitosamente!");
+                            System.out.println("Cita " + idCita + " agendada exitosamente para " + Database.getInstance().buscarPaciente(idPaciente).getNombre() + " con el Dr. " + Database.getInstance().buscarMedico(idMedico).getNombre() + ".");
                             break;
                         case 2:
                             // Lógica para cancelar una cita

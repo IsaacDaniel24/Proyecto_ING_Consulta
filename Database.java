@@ -92,6 +92,15 @@ public class Database {
         return null; // Retorna null si el ID no existe
     }
 
+    public boolean pacienteTieneCita(int idPaciente) { // Método para verificar si un paciente tiene una cita agendada
+        for (Cita cita : citas.values()) {
+            if (cita.getPaciente().getId() == idPaciente && !cita.getEstado().equals("Cancelada")) {
+                return true; // Retorna true si el paciente tiene una cita pendiente o completada
+            }
+        }
+        return false; // Retorna false si el paciente no tiene citas agendadas
+    }
+    
     public Map<Integer, Cita> getCitas() {
         return citas;
     }
