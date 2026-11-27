@@ -26,5 +26,5 @@ N/A
 ## 6. Autores o Agradecimientos
 **Autores:**
 1. Isaac
-2. Norelis
+2. Norelis Carreras Claudio (norelis.carreras@upr.edu) (802-24-3927)
 3. Gabriel A. Borrero Jiménez (gabriel.borrero1@upr.edu) (802-20-0150)
