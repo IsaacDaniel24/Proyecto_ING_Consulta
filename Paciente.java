@@ -2,7 +2,7 @@
 import java.util.LinkedList;
 
 public class Paciente extends People.Persona {
-    private LinkedList<String> historialClinico; // Guarda las notas médicas por fecha
+    private LinkedList<String> historialClinico; // Guarda las notas médicas para cada paciente, en orden de visita
     private boolean esEmergencia; // true = Emergencia, false = Normal
 
     public Paciente(int id, String nombre, boolean esEmergencia) {
