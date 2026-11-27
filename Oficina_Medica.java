@@ -276,38 +276,46 @@ public class Oficina_Medica {
 
                 case 4:
                     System.out.println("Atender Siguiente Paciente (Enfermero -> Médico)");
-                    // Lógica para atender al siguiente paciente
                     System.out.println("Ingrese ID del médico que atenderá al siguiente paciente:");
                     int idMedicoAtender = scanner.nextInt();
                     scanner.nextLine();
 
                     People.Empleado empAtender = Database.getInstance().getMedicos().get(idMedicoAtender);
-                    // Busca al médico en la base de datos
 
                     if (empAtender instanceof Medico) {
                         Medico medicoAtender = (Medico) empAtender;
                         Paciente siguientePaciente = medicoAtender.atenderSiguientePaciente();
+
                         if (siguientePaciente != null) {
                             System.out.println("\n--- Paso 1: Triage (Enfermería) ---");
-                            // Buscar una enfermera disponible para realizar el triage
 
                             Enfermera enfermeraTurno = null;
                             for (People.Empleado emp : Database.getInstance().getEmpleados().values()) {
                                 if (emp instanceof Enfermera && emp.is_Available()) {
                                     enfermeraTurno = (Enfermera) emp;
-                                    // Si esta disponible, se asigna y se rompe el loop para no seguir buscando
                                     break;
                                 }
                             }
 
                             if (enfermeraTurno != null) {
-                                // Determinar el estado de signos vitales según si es emergencia
-                                String estadoSignos = siguientePaciente.isEsEmergencia() ? "Inestable" : "Estable";
+                                System.out.println("Triage atendido por: Enf. " + enfermeraTurno.getNombre());
 
-                                // Registrar signos vitales en el historial clínico del
-                                // paciente
-                                enfermeraTurno.tomarSignosVitales(siguientePaciente, estadoSignos);
-                                System.out.println("Triage realizado por: " + enfermeraTurno.getNombre());
+                                System.out.print("Ingrese presión sistólica (ej. 120): ");
+                                int sistolica = scanner.nextInt();
+
+                                System.out.print("Ingrese presión diastólica (ej. 80): ");
+                                int diastolica = scanner.nextInt();
+
+                                System.out.print("Ingrese pulso en lpm (ej. 75): ");
+                                int pulso = scanner.nextInt();
+
+                                System.out.print("Ingrese temperatura en °C (ej. 36.8): ");
+                                double temperatura = scanner.nextDouble();
+                                scanner.nextLine(); // Limpiar buffer
+
+                                // Evaluar signos y guardar en historial del paciente
+                                String reporteTriage = enfermeraTurno.tomarSignosVitales(
+                                        siguientePaciente, sistolica, diastolica, pulso, temperatura);
 
                                 // Buscar la cita pendiente para actualizarle los signos vitales
                                 Cita citaActual = null;
@@ -321,31 +329,27 @@ public class Oficina_Medica {
                                 }
 
                                 if (citaActual != null) {
-                                    citaActual.registrarSignosVitales(estadoSignos);
+                                    citaActual.registrarSignosVitales(reporteTriage);
                                 }
 
                                 System.out.println("\n--- Paso 2: Consulta Médica ---");
                                 System.out.println("Dr. " + medicoAtender.getNombre() + " atendiendo a: "
                                         + siguientePaciente.getNombre() + " (ID: " + siguientePaciente.getId() + ")");
-                                // Medico atendiendo al paciente y registrando nota médica
+                                System.out.println("ALERTA DE TRIAGE: " + reporteTriage);
 
                                 System.out.print("Ingrese diagnóstico o nota médica de la consulta: ");
                                 String notaConsulta = scanner.nextLine();
-                                siguientePaciente
-                                        .agregarNotaHistorial("Dr. " + medicoAtender.getNombre() + ": " + notaConsulta);
-                                // Agrega la nota al historial clínico del paciente
+                                siguientePaciente.agregarNotaHistorial("Dr. " + medicoAtender.getNombre() + ": " + notaConsulta);
 
                                 if (citaActual != null) {
                                     citaActual.completarCita();
+                                    Database.getInstance().getCitasCompletadas().push(citaActual);
                                     System.out.println("Cita #" + citaActual.getIdCita() + " marcada como Completada.");
                                 }
                             } else {
-                                System.out.println(
-                                        "Error: No hay enfermeras disponibles en el sistema para realizar el triage.");
-                                // Devolver el paciente al frente de la cola del médico para no perderlo
+                                System.out.println("Error: No hay enfermeras disponibles en el sistema para realizar el triage.");
                                 medicoAtender.getLista_pacientes().addFirst(siguientePaciente);
                             }
-
                         } else {
                             System.out.println("No hay pacientes en espera para el Dr. " + medicoAtender.getNombre());
                         }
