@@ -59,13 +59,13 @@ public class Oficina_Medica {
                             scanner.nextLine();
                             String nombrePaciente = scanner.nextLine();
                             System.out.println("¿Es emergencia? (true/false):");
-                            String esEmergencia = scanner.nextLine();
-                            while (!esEmergencia.equals("true") && !esEmergencia.equals("false")) {
-                                System.out.println("Entrada inválida para emergencia. Por favor, ingrese 'true' o 'false'.");
-                                System.out.println("¿Es emergencia? (true/false):");
-                                esEmergencia = scanner.nextLine();
+                            while (!scanner.hasNextBoolean()) {
+                                System.out.println(
+                                        "Entrada inválida. Ingrese 'true' o 'false' para indicar si es emergencia:");
+                                scanner.nextLine(); // Borra la entrada inválida
                             }
-                            Secretaria.registrarPaciente(new Paciente(idPaciente, nombrePaciente, Boolean.parseBoolean(esEmergencia))); // parse convierte el string a boolean
+                            boolean esEmergencia = scanner.nextBoolean();
+                            Secretaria.registrarPaciente(new Paciente(idPaciente, nombrePaciente, esEmergencia));
                             System.out.println("Paciente registrado exitosamente! (ID asignado: " + idPaciente + ")");
                             break;
                         case 2:
@@ -216,6 +216,10 @@ public class Oficina_Medica {
 
                         // Opcional: preguntar si hoy viene por emergencia aunque antes estuviera normal
                         System.out.print("¿El paciente ingresa por emergencia hoy? (true/false): ");
+                        while (!scanner.hasNextBoolean()) {
+                            System.out.println("Entrada inválida. Por favor, ingrese 'true' o 'false'.");
+                            scanner.nextLine(); // Borra la entrada inválida
+                        }
                         boolean emergenciaHoy = scanner.nextBoolean();
                         pacienteCheckIn.setEsEmergencia(emergenciaHoy);
                         scanner.nextLine();
@@ -229,6 +233,11 @@ public class Oficina_Medica {
                             System.out.print("Ingrese nombre del nuevo paciente: ");
                             String nuevoNombre = scanner.nextLine();
                             System.out.print("¿Es emergencia? (true/false): ");
+                            while (!scanner.hasNextBoolean()) {
+                                System.out.println(
+                                        "Entrada inválida. Ingrese 'true' o 'false' para indicar si es emergencia:");
+                                scanner.nextLine(); // Borra la entrada inválida
+                            }
                             boolean esEmergencia = scanner.nextBoolean();
                             scanner.nextLine();
 
@@ -344,7 +353,8 @@ public class Oficina_Medica {
 
                                 System.out.print("Ingrese diagnóstico o nota médica de la consulta: ");
                                 String notaConsulta = scanner.nextLine();
-                                siguientePaciente.agregarNotaHistorial("Dr. " + medicoAtender.getNombre() + ": " + notaConsulta);
+                                siguientePaciente
+                                        .agregarNotaHistorial("Dr. " + medicoAtender.getNombre() + ": " + notaConsulta);
 
                                 if (citaActual != null) {
                                     citaActual.completarCita();
@@ -352,7 +362,8 @@ public class Oficina_Medica {
                                     System.out.println("Cita #" + citaActual.getIdCita() + " marcada como Completada.");
                                 }
                             } else {
-                                System.out.println("Error: No hay enfermeras disponibles en el sistema para realizar el triage.");
+                                System.out.println(
+                                        "Error: No hay enfermeras disponibles en el sistema para realizar el triage.");
                                 medicoAtender.getLista_pacientes().addFirst(siguientePaciente);
                             }
                         } else {
