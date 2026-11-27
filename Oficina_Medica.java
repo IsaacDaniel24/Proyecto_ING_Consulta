@@ -59,6 +59,11 @@ public class Oficina_Medica {
                             scanner.nextLine();
                             String nombrePaciente = scanner.nextLine();
                             System.out.println("¿Es emergencia? (true/false):");
+                            while (!scanner.hasNextBoolean()) {
+                                System.out.println(
+                                        "Entrada inválida. Ingrese 'true' o 'false' para indicar si es emergencia:");
+                                scanner.nextLine(); // Borra la entrada inválida
+                            }
                             boolean esEmergencia = scanner.nextBoolean();
                             Secretaria.registrarPaciente(new Paciente(idPaciente, nombrePaciente, esEmergencia));
                             System.out.println("Paciente registrado exitosamente! (ID asignado: " + idPaciente + ")");
@@ -211,6 +216,10 @@ public class Oficina_Medica {
 
                         // Opcional: preguntar si hoy viene por emergencia aunque antes estuviera normal
                         System.out.print("¿El paciente ingresa por emergencia hoy? (true/false): ");
+                        while (!scanner.hasNextBoolean()) {
+                            System.out.println("Entrada inválida. Por favor, ingrese 'true' o 'false'.");
+                            scanner.nextLine(); // Borra la entrada inválida
+                        }
                         boolean emergenciaHoy = scanner.nextBoolean();
                         pacienteCheckIn.setEsEmergencia(emergenciaHoy);
                         scanner.nextLine();
@@ -339,7 +348,8 @@ public class Oficina_Medica {
 
                                 System.out.print("Ingrese diagnóstico o nota médica de la consulta: ");
                                 String notaConsulta = scanner.nextLine();
-                                siguientePaciente.agregarNotaHistorial("Dr. " + medicoAtender.getNombre() + ": " + notaConsulta);
+                                siguientePaciente
+                                        .agregarNotaHistorial("Dr. " + medicoAtender.getNombre() + ": " + notaConsulta);
 
                                 if (citaActual != null) {
                                     citaActual.completarCita();
@@ -347,7 +357,8 @@ public class Oficina_Medica {
                                     System.out.println("Cita #" + citaActual.getIdCita() + " marcada como Completada.");
                                 }
                             } else {
-                                System.out.println("Error: No hay enfermeras disponibles en el sistema para realizar el triage.");
+                                System.out.println(
+                                        "Error: No hay enfermeras disponibles en el sistema para realizar el triage.");
                                 medicoAtender.getLista_pacientes().addFirst(siguientePaciente);
                             }
                         } else {
