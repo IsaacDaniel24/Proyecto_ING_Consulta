@@ -233,6 +233,11 @@ public class Oficina_Medica {
                             System.out.print("Ingrese nombre del nuevo paciente: ");
                             String nuevoNombre = scanner.nextLine();
                             System.out.print("¿Es emergencia? (true/false): ");
+                            while (!scanner.hasNextBoolean()) {
+                                System.out.println(
+                                        "Entrada inválida. Ingrese 'true' o 'false' para indicar si es emergencia:");
+                                scanner.nextLine(); // Borra la entrada inválida
+                            }
                             boolean esEmergencia = scanner.nextBoolean();
                             scanner.nextLine();
 
