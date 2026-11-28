@@ -455,12 +455,11 @@ public class Oficina_Medica {
             }
         }
         System.out.println(Database.getInstance().getPacientes().values()); // Imprime el HashMap de pacientes para
-                                                                            // verificar que
-        // se
-        // registraron correctamente
+                                                                            // verificar que se registraron
+                                                                            // correctamente
+
         System.out.println(Database.getInstance().getMedicos().values()); // Imprime el HashMap de empleados para
-                                                                          // verificar que
-        // se registraron
+                                                                          // verificar que se registraron correctamente
 
         System.out.println(Database.getInstance().getCitas().values()); // Imprime el HashMap de citas para verificar
                                                                         // que se registraron correctamente
